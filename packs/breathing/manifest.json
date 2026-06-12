@@ -1,0 +1,82 @@
+{
+  "manifest_version": 1,
+  "id": "com.drmowinckels.breathing-studio",
+  "name": "Breathing Studio",
+  "version": "1.0.0",
+  "author": "Dr. Mowinckel",
+  "description": "Guided breathing patterns that pulse the break ring, with in/out tones so you can follow along with your eyes closed.",
+  "kind": "content",
+  "content": {
+    "version": 1,
+    "name": "Breathing Studio",
+    "hints": {
+      "micro_psychological": [
+        "Let your shoulders drop and simply follow the breath."
+      ]
+    },
+    "routines": [
+      {
+        "id": "box-breathing",
+        "label": "Box breathing",
+        "kind": "micro",
+        "category": "breathing",
+        "difficulty": "gentle",
+        "steps": [],
+        "breath": {
+          "inhale": 4,
+          "hold": 4,
+          "exhale": 4,
+          "hold_out": 4,
+          "sounds": {
+            "inhale": "in",
+            "exhale": "out",
+            "hold": "hold",
+            "hold_out": "hold"
+          }
+        }
+      },
+      {
+        "id": "four-seven-eight",
+        "label": "4-7-8 breathing",
+        "kind": "long",
+        "category": "breathing",
+        "difficulty": "gentle",
+        "steps": [],
+        "breath": {
+          "inhale": 4,
+          "hold": 7,
+          "exhale": 8,
+          "cycles": 6,
+          "then": "rest",
+          "sounds": { "inhale": "in", "exhale": "out" }
+        }
+      },
+      {
+        "id": "coherent",
+        "label": "Coherent breathing (5-5)",
+        "kind": "long",
+        "category": "breathing",
+        "difficulty": "gentle",
+        "steps": [],
+        "breath": {
+          "inhale": 5,
+          "exhale": 5,
+          "sounds": { "inhale": "in", "exhale": "out" }
+        }
+      },
+      {
+        "id": "calm-exhale",
+        "label": "Calming exhale (4-6)",
+        "kind": "micro",
+        "category": "breathing",
+        "difficulty": "gentle",
+        "steps": [],
+        "breath": {
+          "inhale": 4,
+          "exhale": 6,
+          "sounds": { "inhale": "in", "exhale": "out" }
+        }
+      }
+    ]
+  }
+}

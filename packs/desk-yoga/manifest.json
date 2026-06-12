@@ -1,0 +1,99 @@
+{
+  "manifest_version": 1,
+  "id": "com.drmowinckels.desk-yoga",
+  "name": "Desk Yoga",
+  "version": "1.0.0",
+  "author": "Dr. Mowinckel",
+  "description": "Gentle desk-friendly yoga flows for long breaks, with a pose image and a chime as each pose begins.",
+  "kind": "content",
+  "content": {
+    "version": 1,
+    "name": "Desk Yoga",
+    "routines": [
+      {
+        "id": "neck-shoulder-reset",
+        "label": "Neck & shoulder reset",
+        "kind": "long",
+        "category": "desk_yoga",
+        "difficulty": "gentle",
+        "pacing": "fill",
+        "steps": [
+          {
+            "text": "Roll your shoulders slowly back, then forward.",
+            "seconds": 25,
+            "asset": "neck-rolls",
+            "sound": "chime"
+          },
+          {
+            "text": "Drop each ear toward its shoulder, holding gently.",
+            "seconds": 30,
+            "asset": "ear-to-shoulder",
+            "sound": "chime"
+          },
+          {
+            "text": "Squeeze your shoulder blades together, then release.",
+            "seconds": 25,
+            "asset": "shoulder-squeeze",
+            "sound": "chime"
+          }
+        ]
+      },
+      {
+        "id": "spine-mobiliser",
+        "label": "Seated spine mobiliser",
+        "kind": "long",
+        "category": "desk_yoga",
+        "difficulty": "gentle",
+        "pacing": "fill",
+        "steps": [
+          {
+            "text": "Seated cat-cow: arch and round your back with the breath.",
+            "seconds": 30,
+            "asset": "cat-cow",
+            "sound": "chime"
+          },
+          {
+            "text": "Twist gently to each side, a hand on the chair back.",
+            "seconds": 30,
+            "asset": "seated-twist",
+            "sound": "chime"
+          },
+          {
+            "text": "Reach one arm overhead and lean into a side bend.",
+            "seconds": 30,
+            "asset": "side-bend",
+            "sound": "chime"
+          }
+        ]
+      },
+      {
+        "id": "wrist-relief",
+        "label": "Wrist & forearm relief",
+        "kind": "long",
+        "category": "desk_yoga",
+        "difficulty": "gentle",
+        "pacing": "fill",
+        "steps": [
+          {
+            "text": "Circle each wrist slowly in both directions.",
+            "seconds": 20,
+            "asset": "wrist-circles",
+            "sound": "chime"
+          },
+          {
+            "text": "Gently pull each hand back to stretch the forearm.",
+            "seconds": 25,
+            "asset": "wrist-stretch",
+            "sound": "chime"
+          },
+          {
+            "text": "Press your palms together at your chest, then lower.",
+            "seconds": 25,
+            "asset": "prayer-stretch",
+            "sound": "chime"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "manifest_version": 1,
+  "id": "com.drmowinckels.eye-care",
+  "name": "Eye Care",
+  "version": "1.0.0",
+  "author": "Dr. Mowinckel",
+  "description": "Short eye-relief routines for screen breaks — focus shifts, palming, and the 20-20-20 rule.",
+  "kind": "content",
+  "content": {
+    "version": 1,
+    "name": "Eye Care",
+    "hints": {
+      "micro_physical": [
+        "Look out of the window and let your eyes wander to the horizon."
+      ]
+    },
+    "routines": [
+      {
+        "id": "twenty-twenty-twenty",
+        "label": "20-20-20 reset",
+        "kind": "micro",
+        "category": "eyes",
+        "difficulty": "gentle",
+        "steps": [
+          {
+            "text": "Look at something about 6 metres (20 ft) away.",
+            "seconds": 20,
+            "asset": "look-far",
+            "sound": "chime"
+          },
+          {
+            "text": "Soften your gaze and blink slowly several times.",
+            "seconds": 10
+          },
+          {
+            "text": "Keep looking far — let your eyes fully relax.",
+            "seconds": 15,
+            "asset": "look-far"
+          }
+        ]
+      },
+      {
+        "id": "palming",
+        "label": "Palming",
+        "kind": "micro",
+        "category": "eyes",
+        "difficulty": "gentle",
+        "steps": [
+          {
+            "text": "Rub your palms together until they feel warm.",
+            "seconds": 10,
+            "sound": "chime"
+          },
+          {
+            "text": "Cup them gently over closed eyes — no pressure.",
+            "seconds": 20,
+            "asset": "palming"
+          },
+          { "text": "Breathe slowly and rest in the darkness.", "seconds": 20 }
+        ]
+      },
+      {
+        "id": "focus-shift",
+        "label": "Near & far focus",
+        "kind": "micro",
+        "category": "eyes",
+        "difficulty": "gentle",
+        "steps": [
+          {
+            "text": "Hold a thumb up close and focus on it.",
+            "seconds": 10,
+            "asset": "focus-shift",
+            "sound": "chime"
+          },
+          {
+            "text": "Shift your focus to something far away.",
+            "seconds": 10,
+            "asset": "look-far"
+          },
+          {
+            "text": "Trace a slow figure-eight with your eyes.",
+            "seconds": 15,
+            "asset": "figure-eight"
+          }
+        ]
+      }
+    ]
+  }
+}
