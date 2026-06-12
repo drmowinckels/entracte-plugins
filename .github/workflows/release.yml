@@ -1,0 +1,49 @@
+name: Release plugins
+
+# Tag a version (e.g. `git tag v1.0.0 && git push --tags`) to sign every pack
+# and attach the installable .plugin.json files to a GitHub Release.
+#
+# Requires one repository secret, PLUGIN_SIGNING_SEED — the base64 Ed25519 seed
+# (the contents of your local key/seed.b64). Set it once:
+#   gh secret set PLUGIN_SIGNING_SEED < key/seed.b64
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pynacl
+
+      - name: Restore signing key
+        env:
+          SEED: ${{ secrets.PLUGIN_SIGNING_SEED }}
+        run: |
+          if [ -z "$SEED" ]; then
+            echo "::error::PLUGIN_SIGNING_SEED secret is not set" && exit 1
+          fi
+          mkdir -p key
+          printf '%s' "$SEED" > key/seed.b64
+
+      - name: Sign every pack
+        run: |
+          for p in packs/*/; do
+            python3 tools/sign.py build "$p"
+          done
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.plugin.json
+          generate_release_notes: true
