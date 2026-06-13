@@ -1,0 +1,105 @@
+meta:
+  name: Breath Bowl
+  slug: breath_bowl
+  category: ritual
+  mood:
+    - calm
+    - metallic
+    - meditative
+  description:
+    A clean, centered singing-bowl drone for breath cues. Mid bowl primary
+    with a low bowl for warmth; tamed reverb and minimal motion so it reads as a
+    single focused tone.
+  author: Matteo Bassi (preset adapted for Entracte breath cues)
+  engine_version: MANTICE_V15
+  tags:
+    - ritual
+    - tibetan
+    - bowls
+    - breath
+global:
+  duration_seconds: 14
+  sample_rate: 44100
+  bit_depth: 16-bit
+reverb:
+  enabled: true
+  space: cathedral
+  mix: 0.2
+  decay_trim: 0.8
+spatial:
+  depth: 1.2
+  wetness: 0.0
+  swarm_density: 0.15
+earth:
+  enabled: false
+air:
+  enabled: false
+saturation: 0.2
+layers:
+  - name: Medium Bowl
+    enabled: true
+    synthesis:
+      root: 196
+      voices: 4
+      ratios:
+        - 1.0
+        - 2.0
+        - 3.56
+        - 5.0
+    fm:
+      ratios:
+        - 1.0
+        - 2.0
+      index: 0.5
+    dynamics:
+      amp_min: 0.18
+      amp_max: 0.32
+      drift: 0.002
+      volume_db: 0.0
+    harmonics: 8
+    harmonic_decay: 0.55
+    noise_amount: 0.008
+    noise_color: pink
+    elevation: 0
+    elevation_motion: static
+    elevation_speed: 0.0
+    elevation_range: 0
+    spatial_motion:
+      quadrant: front_left
+      speed: 0.0
+      trajectory_x: orbit
+  - name: Large Bowl
+    enabled: true
+    synthesis:
+      root: 98
+      voices: 4
+      ratios:
+        - 1.0
+        - 2.0
+        - 3.0
+        - 4.76
+    fm:
+      ratios:
+        - 1.0
+        - 2.0
+      index: 0.5
+    dynamics:
+      amp_min: 0.08
+      amp_max: 0.16
+      drift: 0.002
+      volume_db: -4.0
+    harmonics: 8
+    harmonic_decay: 0.5
+    noise_amount: 0.006
+    noise_color: pink
+    elevation: 0
+    elevation_motion: static
+    elevation_speed: 0.0
+    elevation_range: 0
+    spatial_motion:
+      quadrant: front_right
+      speed: 0.0
+      trajectory_x: orbit
+notes:
+  goal: A single calm bowl tone usable as a breath cue source.
+  listening_tip: Steady, centered, gentle shimmer.
