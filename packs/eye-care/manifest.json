@@ -30,7 +30,8 @@
           },
           {
             "text": "Soften your gaze and blink slowly several times.",
-            "seconds": 10
+            "seconds": 10,
+            "asset": "relax-gaze"
           },
           {
             "text": "Keep looking far — let your eyes fully relax.",
@@ -49,14 +50,18 @@
           {
             "text": "Rub your palms together until they feel warm.",
             "seconds": 10,
-            "sound": "chime"
+            "sound": "chime",
+            "asset": "palm-rub"
           },
           {
             "text": "Cup them gently over closed eyes — no pressure.",
             "seconds": 20,
             "asset": "palming"
           },
-          { "text": "Breathe slowly and rest in the darkness.", "seconds": 20 }
+          {
+            "text": "Breathe slowly and rest in the darkness.",
+            "seconds": 20
+          }
         ]
       },
       {
@@ -75,7 +80,7 @@
           {
             "text": "Shift your focus to something far away.",
             "seconds": 10,
-            "asset": "look-far"
+            "asset": "focus-shift"
           },
           {
             "text": "Trace a slow figure-eight with your eyes.",
