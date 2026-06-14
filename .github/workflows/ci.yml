@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  packs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install signer deps
+        run: pip install pynacl
+
+      - name: Compile tools
+        run: python -m py_compile tools/*.py
+
+      - name: Signer selftest (canonical form pins to Entracte)
+        run: python tools/sign.py selftest
+
+      - name: Validate packs (refs resolve, types, size/count caps)
+        run: python tools/validate_packs.py
+
+      - name: Build smoke (throwaway key signs every pack)
+        run: |
+          python tools/sign.py keygen
+          for pack in packs/*/; do
+            python tools/sign.py build "$pack"
+          done
