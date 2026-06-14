@@ -40,7 +40,7 @@ import numpy as np
 import soundfile as sf
 
 ROOT = Path(__file__).resolve().parent.parent
-SR = 44100
+SR = 22050  # keeps a 4s cue under Entracte's 256 KiB sound cap
 DUR = 4.0  # cue length: fills the shortest (4s) breath phase and rings out within it
 
 BREATHING = ROOT / "packs" / "breathing" / "assets"
