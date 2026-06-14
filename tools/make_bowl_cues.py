@@ -12,9 +12,11 @@ Reproduce
     cd mantice && python3 -m venv .venv && . .venv/bin/activate
     pip install numpy scipy soundfile pyyaml
     cp /path/to/entracte-plugins/tools/bowls/breath-bowl.yaml "presets/sacred/Breath Bowl.yaml"
+    cp /path/to/entracte-plugins/tools/bowls/chime-bowl.yaml  "presets/sacred/Chime Bowl.yaml"
     python main.py --preset "presets/sacred/Breath Bowl.yaml" --duration 14 --seed 7 --format wav
-    #   -> exports/breath_bowl.wav
-    python /path/to/entracte-plugins/tools/make_bowl_cues.py exports/breath_bowl.wav
+    python main.py --preset "presets/sacred/Chime Bowl.yaml"  --duration 10 --seed 3 --format wav
+    #   -> exports/breath_bowl.wav, exports/chime_bowl.wav
+    python /path/to/entracte-plugins/tools/make_bowl_cues.py exports/breath_bowl.wav exports/chime_bowl.wav
 
 Design
 ------
@@ -22,10 +24,15 @@ Four DISTINCT steady pitches trace the breath arc (no glide):
   hold_out (C3, lowest) < out (E3) < in (Bb3) < hold (D4, highest)
 in rises (volume peaks late), out falls (peaks early), the holds are even
 sustains. Every cue rings out to silence so nothing hard-cuts into dead air.
-The chime is a struck variant for desk-yoga / eye-care pose starts.
+
+The chimes (desk-yoga / eye-care pose starts) are struck from a SEPARATE clean
+render — the Chime Bowl preset has no noise layer and no reverb, so the strike
+rings cleanly instead of washing into an airy tail. Each pack gets its own pitch
+(see CHIMES), low-passed to warm off the bright FM partials.
 
 Requires numpy + soundfile (NOT part of the signed build — a one-off asset step).
 """
+import math
 import sys
 from pathlib import Path
 
@@ -37,8 +44,12 @@ SR = 44100
 DUR = 4.0  # cue length: fills the shortest (4s) breath phase and rings out within it
 
 BREATHING = ROOT / "packs" / "breathing" / "assets"
-CHIME_DIRS = [ROOT / "packs" / "desk-yoga" / "assets",
-              ROOT / "packs" / "eye-care" / "assets"]
+# Each pack's chime is struck from the clean (noise-free, reverb-free) chime
+# render at its own pitch, so desk-yoga and eye-care sound distinct.
+CHIMES = {
+    ROOT / "packs" / "desk-yoga" / "assets": -2,  # warmer
+    ROOT / "packs" / "eye-care" / "assets": +3,  # brighter
+}
 
 
 def load(src):
@@ -93,8 +104,42 @@ def write(path, sig):
     print(f"  wrote {path.relative_to(ROOT)}  ({len(sig) / SR:.2f}s)")
 
 
+def lowpass(sig, cutoff, q=0.707):
+    """Two-pole (biquad) low-pass — a steeper roll-off than one-pole, enough to
+    tame the bowl's ~2 kHz FM partials and warm the strike without muffling the
+    body."""
+    w0 = 2 * math.pi * cutoff / SR
+    cw, sw = math.cos(w0), math.sin(w0)
+    alpha = sw / (2 * q)
+    a0 = 1 + alpha
+    b0 = b2 = (1 - cw) / 2 / a0
+    b1 = (1 - cw) / a0
+    a1 = -2 * cw / a0
+    a2 = (1 - alpha) / a0
+    out = np.empty_like(sig)
+    x1 = x2 = y1 = y2 = 0.0
+    for i, x in enumerate(sig):
+        y = b0 * x + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2
+        out[i] = y
+        x2, x1 = x1, x
+        y2, y1 = y1, y
+    return out
+
+
+def struck(mono, semis, out_dur=2.4, decay=0.9, warmth=1200):
+    """A bell strike: sharp 4 ms attack, exponential ring-out, gently warmed."""
+    ch = lowpass(take(mono, 4.0, semis, out_dur=out_dur), warmth)
+    atk = int(0.004 * SR)
+    ch = ch * np.concatenate(
+        [np.linspace(0, 1, atk), np.exp(-np.arange(len(ch) - atk) / SR / decay)]
+    )
+    ch[-int(0.05 * SR):] *= smooth(int(0.05 * SR))[::-1]
+    return ch
+
+
 def main():
     src = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("exports/breath_bowl.wav")
+    chime_src = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("exports/chime_bowl.wav")
     if not src.exists():
         sys.exit(f"render not found: {src}\nSee the docstring to produce it with Mantice.")
     mono = flatten(load(src))
@@ -105,13 +150,11 @@ def main():
     write(BREATHING / "out.wav",      take(mono, 3.0, -3) * ring(n, 0.05, 0.00, 0.10))  # E3, falling
     write(BREATHING / "hold_out.wav", take(mono, 6.0, -7) * ring(n, 0.18, 0.20, 0.45))  # C3, steady (lowest)
 
-    ch = take(mono, 5.0, +7, out_dur=2.6)
-    atk = int(0.004 * SR)
-    ch = ch * np.concatenate([np.linspace(0, 1, atk),
-                              np.exp(-np.arange(len(ch) - atk) / SR / 0.9)])
-    ch[-int(0.05 * SR):] *= smooth(int(0.05 * SR))[::-1]
-    for d in CHIME_DIRS:
-        write(d / "chime.wav", ch)
+    if not chime_src.exists():
+        sys.exit(f"chime render not found: {chime_src}\nSee the docstring (render Chime Bowl).")
+    chime = flatten(load(chime_src))
+    for adir, semis in CHIMES.items():
+        write(adir / "chime.wav", struck(chime, semis))
     print("done.")
 
 
