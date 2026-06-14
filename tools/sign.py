@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 KEY_PATH = ROOT / "key" / "seed.b64"
 DIST = ROOT / "dist"
 
-IMAGE_EXT = {"png", "gif", "webp"}
+IMAGE_EXT = {"png", "gif", "webp", "svg"}
 SOUND_EXT = {"ogg", "wav", "mp3"}
 
 # Golden canonical bytes emitted by Entracte's `signing_payload` for DEMO below.
