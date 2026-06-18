@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "com.drmowinckels.breathing-studio",
   "name": "Breathing Studio",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Dr. Mowinckel",
   "description": "Guided breathing patterns that pulse the break ring, with in/out tones so you can follow along with your eyes closed.",
   "kind": "content",

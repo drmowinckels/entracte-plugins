@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "com.drmowinckels.eye-care",
   "name": "Eye Care",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Dr. Mowinckel",
   "description": "Short eye-relief routines for screen breaks — focus shifts, palming, and the 20-20-20 rule.",
   "kind": "content",
