@@ -57,7 +57,7 @@ Releases are cut by CI. Push a version tag and the
 installable `.plugin.json` files to a GitHub Release:
 
 ```sh
-git tag v1.0.0 && git push --tags
+git tag v0.0.1 && git push --tags
 ```
 
 It needs one repository secret, `PLUGIN_SIGNING_SEED` — the base64 Ed25519 seed

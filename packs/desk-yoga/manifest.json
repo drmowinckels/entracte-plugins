@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "com.drmowinckels.desk-yoga",
   "name": "Desk Yoga",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Dr. Mowinckel",
   "description": "Gentle desk-friendly yoga flows for long breaks, with a pose image and a chime as each pose begins.",
   "kind": "content",
